@@ -8,7 +8,7 @@ class ArrayListTest {
     ArrayList list = new ArrayList();
 
     @Test
-    public void testadd() {
+    public void testAdd() {
         list.add("A");
         list.add("B");
         list.add("C");
@@ -60,16 +60,18 @@ class ArrayListTest {
         assertEquals("S", list.get(0));
         assertEquals("Z", list.get(1));
         assertEquals(200, list.get(2));
+        assertEquals(-1, list.indexOf("E"));
     }
 
     @Test
-    public void testget() {
+    public void testGet() {
         list.add("A");
         list.add("b");
         list.add("C");
         list.add("d");
 
         assertEquals("A", list.get(0));
+        assertEquals(-1, list.indexOf("E"));
     }
 
     @Test
@@ -100,13 +102,19 @@ class ArrayListTest {
     }
 
     @Test
-    public void testremove() {
+    public void testRemove() {
+        //prepare
         list.add("a");
         list.add("B");
-        list.add("C");
-
+        list.add("c");
         assertEquals(3, list.size());
-        assertNull(list.remove(1));
+
+        //when
+        assertEquals(0, list.remove(2));
+
+        //then
+        assertEquals(2, list.size());
+        assertEquals(-1, list.indexOf("E"));
     }
 
     @Test

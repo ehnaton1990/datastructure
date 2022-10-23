@@ -2,9 +2,19 @@ package com.antonenko;
 
 public class ArrayList implements List {
     //«Публичный класс Elements реализует интерфейс main.java.List».
-    private static final int DEFAULT_CAPACITY = 4;
+    private static int DEFAULT_CAPACITY = 10;
     private static Object[] array = new Object[DEFAULT_CAPACITY];
     private int size;
+    public ArrayList(int size) {
+        this.size = size;
+    }
+    public void array (int DEFAULT_CAPACITY) {
+        this.DEFAULT_CAPACITY = DEFAULT_CAPACITY;
+    }
+
+    public ArrayList() {
+
+    }
 
     @Override
     public void add(Object value) {
@@ -21,22 +31,12 @@ public class ArrayList implements List {
     public void add(Object value, int index) {
         // validateAdd(index);
         // if we need require extend array
-        extendArray();
-
+        growArray();
         if (index < size) {
             System.arraycopy(array, index, array, index + 1, size - index);
         }
-
         array[index] = value;
         size++;
-    }
-
-    private void extendArray() {
-        if (array.length == size) {
-            Object[] newArray = new Object[size * 2 + 1];
-            System.arraycopy(array, 0, array, 0, array.length);
-            array = newArray;
-        }
     }
 
     @Override
@@ -109,10 +109,21 @@ public class ArrayList implements List {
             if (value.equals(array[i])) return i;
         return -1;
     }
+    public String toString(Object obj){
+        return String.valueOf(obj);
+    }
 
     private void validation(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(" Index " + index + " must be between 0 and " + size);
+        }
+    }
+
+    private void growArray() {
+        if (array.length == size) {
+            Object[] newArray = new Object[size * 2 + 1];
+            System.arraycopy(array, 0, array, 0, array.length);
+            array = newArray;
         }
     }
 }
