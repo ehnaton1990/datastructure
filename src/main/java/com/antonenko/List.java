@@ -1,5 +1,7 @@
 package com.antonenko;
 
+import java.util.Iterator;
+
 public interface List {
     // add value to the end of the list
     void add(Object value);
@@ -38,4 +40,6 @@ public interface List {
 
     // [A, B, C]
     String toString();
+
+    Iterator iterator();
 }

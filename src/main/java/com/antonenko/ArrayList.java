@@ -2,18 +2,19 @@ package com.antonenko;
 
 public class ArrayList implements List {
     //«Публичный класс Elements реализует интерфейс main.java.List».
-    private static int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 16;
     private static Object[] array = new Object[DEFAULT_CAPACITY];
     private int size;
+
     public ArrayList(int size) {
         this.size = size;
-    }
-    public void array (int DEFAULT_CAPACITY) {
-        this.DEFAULT_CAPACITY = DEFAULT_CAPACITY;
     }
 
     public ArrayList() {
 
+    }
+    public void array(int CAPACITY) {
+        array = new Object[CAPACITY];
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ArrayList implements List {
 
     @Override
     public void add(Object value, int index) {
-        // validateAdd(index);
+        validation(index);
         // if we need require extend array
         growArray();
         if (index < size) {
@@ -109,7 +110,12 @@ public class ArrayList implements List {
             if (value.equals(array[i])) return i;
         return -1;
     }
-    public String toString(Object obj){
+
+    public String toString(Object obj) {
+        for (int i = 0; i < size; i++) {
+            array[i] = obj;
+        }
+        System.out.println("[" + obj + ", " + "]");
         return String.valueOf(obj);
     }
 

@@ -110,7 +110,7 @@ class ArrayListTest {
         assertEquals(3, list.size());
 
         //when
-        assertEquals(0, list.remove(2));
+        list.remove(2);
 
         //then
         assertEquals(2, list.size());
