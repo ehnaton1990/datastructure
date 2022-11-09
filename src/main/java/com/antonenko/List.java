@@ -41,5 +41,5 @@ public interface List {
     // [A, B, C]
     String toString();
 
-    Iterator iterator();
+   // Iterator iterator();
 }

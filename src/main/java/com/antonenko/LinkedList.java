@@ -65,12 +65,12 @@ public class LinkedList implements List {
 
     @Override
     public void clear() {
-        for(Node x = head; x!=null; ){
-            Node next = x.next;
-            x.value = null;
-            x.next = null;
-            x.prev = null;
-            x = next;
+        for(Node current = head; current!=null; ){
+            Node next = current.next;
+            current.value = null;
+            current.next = null;
+            current.prev = null;
+            current = next;
         }
         head = tail = null;
         size = 0;
@@ -90,11 +90,6 @@ public class LinkedList implements List {
     @Override
     public boolean isEmpty() {
         return false;
-    }
-
-    @Override
-    public Iterator iterator() {
-        return null;
     }
 
     private static class Node {

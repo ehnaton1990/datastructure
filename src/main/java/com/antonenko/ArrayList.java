@@ -19,6 +19,7 @@ public class ArrayList implements List {
 
     @Override
     public void add(Object value) {
+        check(value);
         if (size == array.length) {
             Object[] newArray = new Object[DEFAULT_CAPACITY * 2];
             System.arraycopy(array, 0, newArray, 0, array.length);
@@ -31,6 +32,7 @@ public class ArrayList implements List {
     @Override
     public void add(Object value, int index) {
         validation(index);
+        check(value);
         // if we need require extend array
         growArray();
         if (index < size) {
@@ -65,6 +67,7 @@ public class ArrayList implements List {
     @Override
     public Object set(Object value, int index) { //реалізувати валідацію (index не може бути менше 0), вставити елемент в існуючий index
         validation(index);
+        check(value);
         Object oldValue = array[index];// наш метод get
         array[index] = value; // в існуючий елемент закинули нове значення.
         return oldValue;
@@ -87,6 +90,7 @@ public class ArrayList implements List {
 
     @Override
     public boolean contains(Object value) { //шукає однакові елементи
+        check(value);
         for (int i = 0; i < size; i++) {
             if (value.equals(array[i])) {
                 return true;
@@ -97,6 +101,7 @@ public class ArrayList implements List {
 
     @Override
     public int indexOf(Object value) { //виводить індекс елемента при першому входженні в масив
+        check(value);
         for (int i = 0; i < size; i++)
             if (value.equals(array[i])) {
                 return i;
@@ -106,22 +111,32 @@ public class ArrayList implements List {
 
     @Override
     public int lastIndexOf(Object value) { // повертає індекс останнього входження зазначеного елемента в масиві
+        check(value);
         for (int i = size - 1; i > 0; i--)
             if (value.equals(array[i])) return i;
         return -1;
     }
 
-    public String toString(Object obj) {
+    public String toString() {
+        String result = "[";
         for (int i = 0; i < size; i++) {
-            array[i] = obj;
+            result += array[i];
+            if (i < size -1){
+                result += ", ";
+            }
         }
-        System.out.println("[" + obj + ", " + "]");
-        return String.valueOf(obj);
+        result += "]";
+        return result;
     }
 
     private void validation(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(" Index " + index + " must be between 0 and " + size);
+        }
+    }
+    private void check(Object value){
+        if(value == null){
+            throw new NullPointerException();
         }
     }
 

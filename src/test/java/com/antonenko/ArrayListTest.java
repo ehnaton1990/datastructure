@@ -145,4 +145,30 @@ class ArrayListTest {
         assertEquals(3, list.size());
 
     }
+    @Test
+    public void testToString(){
+        assertEquals("[]", list.toString());
+        assertEquals("[A, B, C, D, E]", list.toString());
+    }
+    @Test
+    public void testGetFromIndexLessThanZero(){
+        list.get(-1);
+    }
+
+    @Test
+    public void itShouldThrowNullPointerExceptionWhenSetNegativeIndex() {
+        assertThrows(NullPointerException.class,
+                ()->{
+                    //do whatever you want to do here
+                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+                });
+    }
+    @Test
+    public void itShouldThrowNullPointerExceptionWhenGetNegativeIndex() {
+        assertThrows(NullPointerException.class,
+                ()->{
+                    //do whatever you want to do here
+                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+                });
+    }
 }
