@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedListTest {
-    ArrayList list = new ArrayList();
+    LinkedList list = new LinkedList();
 
     @Test
     public void testClear() {
@@ -20,8 +20,8 @@ class LinkedListTest {
     @Test
     public void testSize() {
         list.add("F");
-        list.add("F");
-        list.add("F");
+        list.add("e");
+        list.add("A");
 
         assertEquals(3, list.size());
 

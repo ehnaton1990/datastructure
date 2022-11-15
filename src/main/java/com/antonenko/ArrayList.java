@@ -1,25 +1,20 @@
 package com.antonenko;
 
 public class ArrayList implements List {
-    //«Публичный класс Elements реализует интерфейс main.java.List».
     private static final int DEFAULT_CAPACITY = 16;
     private static Object[] array = new Object[DEFAULT_CAPACITY];
     private int size;
 
-    public ArrayList(int size) {
-        this.size = size;
-    }
-
     public ArrayList() {
 
     }
+
     public void array(int CAPACITY) {
         array = new Object[CAPACITY];
     }
 
     @Override
     public void add(Object value) {
-        check(value);
         if (size == array.length) {
             Object[] newArray = new Object[DEFAULT_CAPACITY * 2];
             System.arraycopy(array, 0, newArray, 0, array.length);
@@ -33,11 +28,8 @@ public class ArrayList implements List {
     public void add(Object value, int index) {
         validation(index);
         check(value);
-        // if we need require extend array
         growArray();
-        if (index < size) {
-            System.arraycopy(array, index, array, index + 1, size - index);
-        }
+        System.arraycopy(array, index, array, index + 1, size - index);
         array[index] = value;
         size++;
     }
@@ -121,7 +113,7 @@ public class ArrayList implements List {
         String result = "[";
         for (int i = 0; i < size; i++) {
             result += array[i];
-            if (i < size -1){
+            if (i < size - 1) {
                 result += ", ";
             }
         }
@@ -130,12 +122,13 @@ public class ArrayList implements List {
     }
 
     private void validation(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(" Index " + index + " must be between 0 and " + size);
         }
     }
-    private void check(Object value){
-        if(value == null){
+
+    private void check(Object value) {
+        if (value == null) {
             throw new NullPointerException();
         }
     }
