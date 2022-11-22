@@ -1,14 +1,14 @@
 package com.antonenko;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractListTest {
-    List list;
+    private List list;
 
-    @Before
+    @BeforeEach
     public void before() {
         list = getList();
     }
@@ -175,20 +175,25 @@ public abstract class AbstractListTest {
     }
 
     @Test
+    void exceptionTesting() {
+        IndexOutOfBoundsException thrown = assertThrows(IndexOutOfBoundsException.class, () -> list.add("A", -100), "Expected doThing() to throw, but it didn't");
+
+        //assertTrue(thrown.getMessage().contains("Index" + -100 + " must be between 0 and " + 1));
+    }
+
+    @Test
     public void itShouldThrowNullPointerExceptionWhenSetNegativeIndex() {
-        assertThrows(NullPointerException.class,
-                () -> {
-                    //do whatever you want to do here
-                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
-                });
+        assertThrows(NullPointerException.class, () -> {
+            //do whatever you want to do here
+            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+        });
     }
 
     @Test
     public void itShouldThrowNullPointerExceptionWhenGetNegativeIndex() {
-        assertThrows(NullPointerException.class,
-                () -> {
-                    //do whatever you want to do here
-                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
-                });
+        assertThrows(NullPointerException.class, () -> {
+            //do whatever you want to do here
+            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+        });
     }
 }
