@@ -32,7 +32,7 @@ public abstract class AbstractListTest {
     public void testAddToIndex() {
         list.add("Y", 1);
         assertEquals("A", list.get(0));
-        assertEquals("B", list.get(1));
+        assertEquals("Y", list.get(1));
         assertEquals("C", list.get(2));
         assertEquals("D", list.get(3));
     }

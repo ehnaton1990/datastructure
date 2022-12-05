@@ -3,7 +3,6 @@ package com.antonenko;
 public class LinkedList implements List {
     private Node tail;
     private Node head;
-
     private Node reference;
     private int size;
 
@@ -25,57 +24,55 @@ public class LinkedList implements List {
 
     @Override
     public void add(Object value, int index) {
-        Node newNode = new Node(value);
-
-        if (size == 0) {
-            head = tail = newNode;
-        } else if (index == 0) {
-            head.prev = newNode;
-            newNode.next = head;
-            head = newNode;
-        } else if (index == size) {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
-        } else {
-
-        }
+        setReference(index);
+        Node<Object> temp = new Node<Object>(value, reference, reference.prev);
+        temp.prev.next = temp;
+        size++;
     }
 
     @Override
     public Object remove(int index) {
-        checkIndex(index);
-        Object result = reference.next.value;
-        reference.prev.next = reference.next;
-        reference.next.prev = reference.prev;
+        //checkIndex(index);
+        Node current = head;
+        if (index == 0) {
+            size--;
+            head = current.next;
+            return current.element;
+        }
+        Node temp = null;
+        for (int i = 0; i < index; i++) {
+            temp = current;
+            current = current.next;
+        }
+        temp.next = current.next;
         size--;
-        return result;
+        return current.element;
     }
 
     @Override
     public Object get(int index) {
-        checkIndex(index);
+        setReference(index);
         return reference.value;
     }
 
     @Override
     public Object set(Object value, int index) {
-        checkIndex(index);
-        int current = 0;
-        Node tempNode = head;
-        while (current < index) {
-            tempNode = tempNode.getmNextNode();
-            current++;
-        }
-        Object previousElement = tempNode.getmNextNode();
-        tempNode.setmElement();
-
-        return previousElement;
+        //checkIndex(index);
+        setReference(index);
+        Object result = reference.value;
+        reference.value = value;
+        return result;
     }
 
     @Override
     public boolean contains(Object value) {
-        return indexOf(value) >= 0;
+        boolean isTrue;
+        if(!(this.indexOf(value) == -1)){
+            isTrue = true;
+        }else {
+            isTrue = false;
+        }
+        return isTrue;
     }
 
     @Override
@@ -129,7 +126,7 @@ public class LinkedList implements List {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(" Index " + index + " must be between 0 and " + size);
+            throw new IndexOutOfBoundsException("List index out of bounds");
         }
     }
 
@@ -139,21 +136,34 @@ public class LinkedList implements List {
         }
     }
 
+    private void setReference(int index) {
+        reference = head;
+        for (int i = 0; i < index; i++) {
+            reference = reference.next;
+        }
+    }
+
     private static class Node<Object> {
         private Node next;
         private Node prev;
+        private Node element;
         private Object value;
+        private Object mElement;
+        private Node<Object> mNextNode;
 
         public Node(Object value) {
             this.value = value;
         }
 
-        public Node<Object> getmNextNode() {
-            return this.getmNextNode();
+        public Node(Object value, Object reference, Object prev) {
         }
 
-        public Node<Object> setmElement() {
-            return this.setmElement();
+        public Node<Object> getmNextNode() {
+            return this.mNextNode;
+        }
+
+        public void setmElement(Object value) {
+            this.mElement = value;
         }
     }
 }
