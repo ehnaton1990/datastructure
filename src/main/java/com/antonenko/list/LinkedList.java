@@ -1,14 +1,10 @@
-package com.antonenko;
+package com.antonenko.list;
 
 public class LinkedList implements List {
     private Node tail;
     private Node head;
     private Node reference;
     private int size;
-
-    public LinkedList() {
-        this.reference = reference;
-    }
 
     @Override
     public void add(Object value) {

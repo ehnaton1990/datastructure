@@ -1,15 +1,18 @@
-package com.antonenko;
+package com.antonenko.list;
+
+import java.util.StringJoiner;
 
 public class ArrayList implements List {
-    private static final int DEFAULT_CAPACITY = 16;
-    private static Object[] array = new Object[DEFAULT_CAPACITY];
+    private static final int DEFAULT_CAPACITY = 10;
+    private static Object[] array;
     private int size;
 
     public ArrayList() {
-
+        this(DEFAULT_CAPACITY);
     }
 
-    public void array(int CAPACITY) {
+    public ArrayList(int CAPACITY) {
+
         array = new Object[CAPACITY];
     }
 
@@ -50,18 +53,18 @@ public class ArrayList implements List {
     }
 
     @Override
-    public Object get(int index) { //приходить індекс, найти в масиві індекс, після чого індекс треба повернути
+    public Object get(int index) {
         validation(index);
         Object value = array[index];
         return value;
     }
 
     @Override
-    public Object set(Object value, int index) { //реалізувати валідацію (index не може бути менше 0), вставити елемент в існуючий index
+    public Object set(Object value, int index) {
         validation(index);
         check(value);
-        Object oldValue = array[index];// наш метод get
-        array[index] = value; // в існуючий елемент закинули нове значення.
+        Object oldValue = array[index];
+        array[index] = value;
         return oldValue;
     }
 
@@ -76,12 +79,12 @@ public class ArrayList implements List {
     }
 
     @Override
-    public boolean isEmpty() { //перевіряє чи є масив порожнім
+    public boolean isEmpty() {
         return size == 0;
     }
 
     @Override
-    public boolean contains(Object value) { //шукає однакові елементи
+    public boolean contains(Object value) {
         check(value);
         for (int i = 0; i < size; i++) {
             if (value.equals(array[i])) {
@@ -92,7 +95,7 @@ public class ArrayList implements List {
     }
 
     @Override
-    public int indexOf(Object value) { //виводить індекс елемента при першому входженні в масив
+    public int indexOf(Object value) {
         check(value);
         for (int i = 0; i < size; i++)
             if (value.equals(array[i])) {
@@ -102,7 +105,7 @@ public class ArrayList implements List {
     }
 
     @Override
-    public int lastIndexOf(Object value) { // повертає індекс останнього входження зазначеного елемента в масиві
+    public int lastIndexOf(Object value) {
         check(value);
         for (int i = size - 1; i > 0; i--)
             if (value.equals(array[i])) return i;
@@ -110,15 +113,13 @@ public class ArrayList implements List {
     }
 
     public String toString() {
-        String result = "[";
-        for (int i = 0; i < size; i++) {
-            result += array[i];
-            if (i < size - 1) {
-                result += ", ";
+        StringJoiner joiner = new StringJoiner(", ", "[", "]");
+        for (Object value : array) {
+            if (value != null) {
+                joiner.add(String.valueOf(value));
             }
         }
-        result += "]";
-        return result;
+        return joiner.toString();
     }
 
     private void validation(int index) {
@@ -129,7 +130,7 @@ public class ArrayList implements List {
 
     private void check(Object value) {
         if (value == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Value can't be null");
         }
     }
 

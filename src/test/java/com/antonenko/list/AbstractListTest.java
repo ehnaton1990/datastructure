@@ -1,4 +1,4 @@
-package com.antonenko;
+package com.antonenko.list;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +30,17 @@ public abstract class AbstractListTest {
 
     @Test
     public void testAddToIndex() {
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        assertEquals(3, list.size());
         list.add("Y", 1);
+        assertEquals(4,list.size());
+
         assertEquals("A", list.get(0));
         assertEquals("Y", list.get(1));
-        assertEquals("C", list.get(2));
-        assertEquals("D", list.get(3));
+        assertEquals("B", list.get(2));
+        assertEquals("C", list.get(3));
     }
 
     @Test
@@ -116,6 +122,9 @@ public abstract class AbstractListTest {
     public void testIsEmpty() {
         assertTrue(list.isEmpty());
         assertEquals(0, list.size());
+
+        list.add("R");
+        assertFalse(list.isEmpty());
     }
 
     @Test
@@ -147,7 +156,7 @@ public abstract class AbstractListTest {
     public void testClear() {
         list.add("A");
         list.add("B");
-
+        assertEquals(2, list.size());
         list.clear();
 
         assertEquals(0, list.size());
@@ -166,34 +175,64 @@ public abstract class AbstractListTest {
     @Test
     public void testToString() {
         assertEquals("[]", list.toString());
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        list.add("E");
         assertEquals("[A, B, C, D, E]", list.toString());
     }
 
     @Test
-    public void testGetFromIndexLessThanZero() {
-        list.get(-1);
+    void ShouldThrowIndexOfBoundException() {
+        //add
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add("A", -100));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add("A", 100));
+        //remove
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(17));
+        //set
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set("K", -125));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set("C", 197));
+        //get
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(-125));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(197));
     }
 
     @Test
-    void exceptionTesting() {
-        IndexOutOfBoundsException thrown = assertThrows(IndexOutOfBoundsException.class, () -> list.add("A", -100), "Expected doThing() to throw, but it didn't");
-
-        //assertTrue(thrown.getMessage().contains("Index" + -100 + " must be between 0 and " + 1));
-    }
-
-    @Test
-    public void itShouldThrowNullPointerExceptionWhenSetNegativeIndex() {
+    public void ShouldThrowNullPointerExceptionWhenAddNullValue() {
+        int index = 0;
         assertThrows(NullPointerException.class, () -> {
-            //do whatever you want to do here
-            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+            list.add(null, index);
         });
     }
 
     @Test
-    public void itShouldThrowNullPointerExceptionWhenGetNegativeIndex() {
+    public void ShouldThrowNullPointerExceptionWhenSetNullValue() {
+        int index = 0;
         assertThrows(NullPointerException.class, () -> {
-            //do whatever you want to do here
-            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+            list.set(null, index);
+        });
+    }
+
+    @Test
+    public void ShouldThrowNullPointerExceptionWhenCheckIfContainsAndValueIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            list.contains(null);
+        });
+    }
+
+    @Test
+    public void ShouldThrowNullPointerExceptionWhenGetIndexOfAndValueIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            list.indexOf(null);
+        });
+    }
+
+    @Test
+    public void ShouldThrowNullPointerExceptionWhenGetLastIndexOfAndValueIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            list.lastIndexOf(null);
         });
     }
 }

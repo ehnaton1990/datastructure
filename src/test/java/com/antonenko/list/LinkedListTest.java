@@ -1,4 +1,4 @@
-package com.antonenko;
+package com.antonenko.list;
 
 public class LinkedListTest extends AbstractListTest {
     @Override

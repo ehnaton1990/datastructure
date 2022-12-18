@@ -1,6 +1,4 @@
-package com.antonenko;
-
-import java.util.Iterator;
+package com.antonenko.list;
 
 public interface List {
     // add value to the end of the list
@@ -41,5 +39,4 @@ public interface List {
     // [A, B, C]
     String toString();
 
-   // Iterator iterator();
 }
