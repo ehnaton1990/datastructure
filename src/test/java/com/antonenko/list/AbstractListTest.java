@@ -30,10 +30,14 @@ public abstract class AbstractListTest {
 
     @Test
     public void testAddToIndex() {
-        list.add("A");
-        list.add("B");
-        list.add("C");
+
+        //when
+        list.add("A",0);
+        list.add("B",1);
+        list.add("C",2);
         assertEquals(3, list.size());
+
+        //then
         list.add("Y", 1);
         assertEquals(4,list.size());
 
@@ -184,7 +188,7 @@ public abstract class AbstractListTest {
     }
 
     @Test
-    void ShouldThrowIndexOfBoundException() {
+    void shouldThrowIndexOfBoundException() {
         //add
         assertThrows(IndexOutOfBoundsException.class, () -> list.add("A", -100));
         assertThrows(IndexOutOfBoundsException.class, () -> list.add("A", 100));
@@ -200,7 +204,7 @@ public abstract class AbstractListTest {
     }
 
     @Test
-    public void ShouldThrowNullPointerExceptionWhenAddNullValue() {
+    public void shouldThrowNullPointerExceptionWhenAddNullValue() {
         int index = 0;
         assertThrows(NullPointerException.class, () -> {
             list.add(null, index);
@@ -208,7 +212,7 @@ public abstract class AbstractListTest {
     }
 
     @Test
-    public void ShouldThrowNullPointerExceptionWhenSetNullValue() {
+    public void shouldThrowNullPointerExceptionWhenSetNullValue() {
         int index = 0;
         assertThrows(NullPointerException.class, () -> {
             list.set(null, index);
@@ -216,21 +220,21 @@ public abstract class AbstractListTest {
     }
 
     @Test
-    public void ShouldThrowNullPointerExceptionWhenCheckIfContainsAndValueIsNull() {
+    public void shouldThrowNullPointerExceptionWhenCheckIfContainsAndValueIsNull() {
         assertThrows(NullPointerException.class, () -> {
             list.contains(null);
         });
     }
 
     @Test
-    public void ShouldThrowNullPointerExceptionWhenGetIndexOfAndValueIsNull() {
+    public void shouldThrowNullPointerExceptionWhenGetIndexOfAndValueIsNull() {
         assertThrows(NullPointerException.class, () -> {
             list.indexOf(null);
         });
     }
 
     @Test
-    public void ShouldThrowNullPointerExceptionWhenGetLastIndexOfAndValueIsNull() {
+    public void shouldThrowNullPointerExceptionWhenGetLastIndexOfAndValueIsNull() {
         assertThrows(NullPointerException.class, () -> {
             list.lastIndexOf(null);
         });
