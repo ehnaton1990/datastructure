@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 public class LinkedList implements List {
+    private static final String INVALID_RANGE_EXCEPTION_MESSAGE = "Unable to process value at index %d. Available range: [0, %d]";
     private Node tail;
     private Node head;
     private int size;
@@ -16,7 +17,7 @@ public class LinkedList implements List {
     @Override
     public void add(Object value, int index) {
         check(value);
-        //checkIndex(index);
+        checkIndex(index);
         Node newNode = new Node(value);
         if (size == 0) {
             head = tail = newNode;
@@ -38,7 +39,7 @@ public class LinkedList implements List {
 
     @Override
     public Object remove(int index) {
-        //checkIndex(index);
+        checkIndex(index);
         getNode(index);
         Node current = getNode(index);
         removeNode(current);
@@ -72,7 +73,7 @@ public class LinkedList implements List {
     @Override
     public Object set(Object value, int index) {
         check(value);
-        //checkIndex(index);
+        checkIndex(index);
         Node current = getNode(index);
         Object oldValue = current.value;
         current.value = value;
@@ -127,21 +128,29 @@ public class LinkedList implements List {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
         Node current = head;
-        while (current!=null){
+        while (current != null) {
             stringJoiner.add(current.value.toString());
             current = current.next;
         }
         return stringJoiner.toString();
     }
 
-    //private void checkIndex(int index) {
-    //  if (index < 0 || index > size - 1) {
-    //      throw new IndexOutOfBoundsException("Index " + index + " must between 0 to " + (size - 1));
-    //   }
-    // }
+    private void checkIndex(int index) {
+        if (!(index >= 0 && index <= size)) {
+            String errorMsg = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, index, size);
+            throw new IndexOutOfBoundsException(errorMsg);
+        }
+    }
+
+    private void checkIndexForAdd(int index) {
+        if (!(index >= 0 && index < size)) {
+            String errorMsg = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, index, size - 1);
+            throw new IndexOutOfBoundsException(errorMsg);
+        }
+    }
 
     private void check(Object value) {
         if (value == null) {
@@ -168,15 +177,11 @@ public class LinkedList implements List {
     private static class Node<Object> {
         private Node next;
         private Node prev;
-        private Node element;
         private Object value;
 
         public Node(Object value) {
             this.value = value;
         }
 
-
-        public Node(java.lang.Object value, Node next) {
-        }
     }
 }
